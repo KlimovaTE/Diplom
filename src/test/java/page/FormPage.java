@@ -6,6 +6,7 @@ import lombok.Data;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
+import java.util.List;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -23,7 +24,7 @@ public class FormPage {
     private static SelenideElement textSuccess = $(".notification_status_ok");
     private static SelenideElement textError = $(".notification_status_error");
     private static SelenideElement textErrorInvalidFormat = $(".input__sub");
-
+    private static List<SelenideElement> textErrorInvalidFormatList = $$(".input__sub");
     public static SelenideElement paySuccess() {
         return textSuccess.shouldHave(text("Операция одобрена Банком."), Duration.ofSeconds(15)).shouldBe(visible);
     }
@@ -44,6 +45,12 @@ public class FormPage {
         return textErrorInvalidFormat.shouldHave(text("Истёк срок действия карты"), Duration.ofSeconds(2)).shouldBe(visible);
     }
 
+    public static Boolean errorRequiredField() {
+        for (SelenideElement element : textErrorInvalidFormatList){
+            element.shouldHave(text("Поле обязательно для заполнения"), Duration.ofSeconds(2)).shouldBe(visible);
+        }
+        return true;
+    }
     public static void setCard(String cardNumber) {
         cardField.setValue(cardNumber);
     }

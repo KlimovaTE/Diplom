@@ -18,6 +18,13 @@ public class PayCardNegativeTest {
     }
 
     @Test
+    @DisplayName("Платеж. Отправка незаполненной формы.")
+    public void payWithBlankForm() {
+        HomePage.paymentPage();
+        FormPage.proceedButton.click();
+        Assertions.assertTrue(FormPage.errorRequiredField());
+    }
+    @Test
     @DisplayName("Платеж. Заполнение всех полей валидными данными, кроме поля \"Месяц\". В поле \"Месяц\" введена одна цифра.")
     public void payWithInvalidMonth1() {
         HomePage.paymentPage();
