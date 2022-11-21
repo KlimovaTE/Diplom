@@ -24,13 +24,13 @@ public class ApiUtils {
 
     public static void shouldSendValidPaymentRequestApprovedCard() {
         CardInfo info = new CardInfo(DataHelper.getApprovedCardNumber(),
-                DataHelper.getValidMonthRandom(),
-                DataHelper.getNextYear(),
+                DataHelper.getMonthWithShift(0),
+                DataHelper.getYearWithShift(1),
                 DataHelper.getValidOwnerName(),
                 DataHelper.getValidCVC());
         given()
                 .spec(requestSpec)
-                .body(DataHelper.AuthInfo.createJSON(info))
+                .body(DataHelper.AuthInfo.createBodyPaymentRequest(info))
                 .when()
                 .post("/pay")
                 .then()
@@ -40,13 +40,13 @@ public class ApiUtils {
 
     public static void shouldSendValidPaymentRequestDeclinedCard() {
         CardInfo info = new CardInfo(DataHelper.getDeclinedCardNumber(),
-                DataHelper.getValidMonthRandom(),
-                DataHelper.getNextYear(),
+                DataHelper.getMonthWithShift(0),
+                DataHelper.getYearWithShift(1),
                 DataHelper.getValidOwnerName(),
                 DataHelper.getValidCVC());
         given()
                 .spec(requestSpec)
-                .body(DataHelper.AuthInfo.createJSON(info))
+                .body(DataHelper.AuthInfo.createBodyPaymentRequest(info))
                 .when()
                 .post("/pay")
                 .then()
@@ -56,13 +56,13 @@ public class ApiUtils {
 
     public static void shouldSendValidCreditRequestApprovedCard() {
         CardInfo info = new CardInfo(DataHelper.getApprovedCardNumber(),
-                DataHelper.getValidMonthRandom(),
-                DataHelper.getNextYear(),
+                DataHelper.getMonthWithShift(0),
+                DataHelper.getYearWithShift(1),
                 DataHelper.getValidOwnerName(),
                 DataHelper.getValidCVC());
         given()
                 .spec(requestSpec)
-                .body(DataHelper.AuthInfo.createJSON(info))
+                .body(DataHelper.AuthInfo.createBodyPaymentRequest(info))
                 .when()
                 .post("/credit")
                 .then()
@@ -72,13 +72,13 @@ public class ApiUtils {
 
     public static void shouldSendValidCreditRequestDeclinedCard() {
         CardInfo info = new CardInfo(DataHelper.getDeclinedCardNumber(),
-                DataHelper.getValidMonthRandom(),
-                DataHelper.getNextYear(),
+                DataHelper.getMonthWithShift(0),
+                DataHelper.getYearWithShift(1),
                 DataHelper.getValidOwnerName(),
                 DataHelper.getValidCVC());
         given()
                 .spec(requestSpec)
-                .body(DataHelper.AuthInfo.createJSON(info))
+                .body(DataHelper.AuthInfo.createBodyPaymentRequest(info))
                 .when()
                 .post("/credit")
                 .then()
