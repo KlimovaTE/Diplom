@@ -3,7 +3,6 @@ package data;
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -23,7 +22,9 @@ public class DataHelper {
     }
 
     private static final Faker faker = new Faker(Locale.ENGLISH);
-
+    public static String getURL() {
+        return "http://localhost:8080";
+    }
     public static String getApprovedCardNumber() {
         return "4444 4444 4444 4441";
     }
@@ -45,13 +46,15 @@ public class DataHelper {
     }
 
     public static String getValidCVC() {
-        int n = (int) (Math.random() * 999 + 1);
-        return String.format("%03d", n);
+//        int n = (int) (Math.random() * 999 + 1);
+//        return String.format("%03d", n);
+        return getNumeric(3);
     }
 
-    public static String getOneDigit() {
-        int element = (int) (Math.random() * 10);
-        return Integer.toString(element);
+    public static String getNumeric(int length) {
+//        int element = (int) (Math.random() * 10);
+        return faker.number().digits(length);
+//        return Integer.toString(element);
     }
 
     public static String getOneNumberFrom13to99() {

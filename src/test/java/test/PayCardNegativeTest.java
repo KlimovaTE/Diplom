@@ -14,7 +14,7 @@ public class PayCardNegativeTest {
 
     @BeforeEach
     public void setUp() {
-        open("http://localhost:8080");
+        open(DataHelper.getURL());
         DBUtil.clearingTable("order_entity");
         DBUtil.clearingTable("payment_entity");
     }
@@ -24,7 +24,7 @@ public class PayCardNegativeTest {
     public void payWithBlankForm() {
         FormPage formPage = homePage.paymentPage();
         formPage.proceedButton.click();
-        formPage.errorRequiredField();
+        formPage.assertErrorRequiredField();
     }
 
     @Test
@@ -32,9 +32,9 @@ public class PayCardNegativeTest {
     public void payWithInvalidMonth1() {
         FormPage formPage = homePage.paymentPage();
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
-        formPage.setMonth(DataHelper.getOneDigit());
+        formPage.setMonth(DataHelper.getNumeric(1));
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -44,7 +44,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setMonth("00");
         formPage.proceedButton.click();
-        formPage.errorInvalidCardExpirationDate();
+        formPage.assertErrorInvalidCardExpirationDate();
     }
 
     @Test
@@ -54,7 +54,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setMonth(DataHelper.getOneNumberFrom13to99());
         formPage.proceedButton.click();
-        formPage.errorInvalidCardExpirationDate();
+        formPage.assertErrorInvalidCardExpirationDate();
     }
 
     @Test
@@ -62,9 +62,9 @@ public class PayCardNegativeTest {
     public void payWithInvalidYear1() {
         FormPage formPage = homePage.paymentPage();
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
-        formPage.setYear(DataHelper.getOneDigit());
+        formPage.setYear(DataHelper.getNumeric(1));
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -74,7 +74,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setYear(DataHelper.getYearWithShift(-1));
         formPage.proceedButton.click();
-        formPage.errorExpiredCard();
+        formPage.assertErrorExpiredCard();
     }
 
     @Test
@@ -84,7 +84,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setYear(DataHelper.getYearWithShift(6));
         formPage.proceedButton.click();
-        formPage.errorInvalidCardExpirationDate();
+        formPage.assertErrorInvalidCardExpirationDate();
     }
 
     @Test
@@ -95,7 +95,7 @@ public class PayCardNegativeTest {
         formPage.setMonth(DataHelper.getMonthWithShift(-1));
         formPage.setYear(DataHelper.getYearWithShift(0));
         formPage.proceedButton.click();
-        formPage.errorInvalidCardExpirationDate();
+        formPage.assertErrorInvalidCardExpirationDate();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setOwnerName(DataHelper.getInvalidOwnerOnlyOneName());
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -115,7 +115,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setOwnerName(DataHelper.getInvalidOwnerThreeName());
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -125,7 +125,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setOwnerName(DataHelper.getInvalidOwnerNameWithNumber());
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -135,7 +135,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setOwnerName(DataHelper.getInvalidOwnerNameWithCyrillic());
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -145,7 +145,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setOwnerName(DataHelper.getInvalidOwnerOnlyOneName() + " " + " \"[|]'~<!--@/*$%^&#*/()?>,.*/\\");
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -155,7 +155,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setOwnerName(DataHelper.getInvalidOwnerNameLength65());
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -165,7 +165,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setOwnerName("<script>alert(\"I hacked this!\")</script>");
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -175,7 +175,7 @@ public class PayCardNegativeTest {
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.setOwnerName("FOO’); DROP TABLE USERS;");
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -183,9 +183,9 @@ public class PayCardNegativeTest {
     public void payWithInvalidCVC1() {
         FormPage formPage = homePage.paymentPage();
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
-        formPage.setCVC(DataHelper.getOneDigit());
+        formPage.setCVC(DataHelper.getNumeric(1));
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 
     @Test
@@ -193,8 +193,8 @@ public class PayCardNegativeTest {
     public void payWithInvalidCVC2() {
         FormPage formPage = homePage.paymentPage();
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
-        formPage.setCVC(DataHelper.getOneDigit() + DataHelper.getOneDigit());
+        formPage.setCVC(DataHelper.getNumeric(2));
         formPage.proceedButton.click();
-        formPage.errorInvalidFormat();
+        formPage.assertErrorInvalidFormat();
     }
 }

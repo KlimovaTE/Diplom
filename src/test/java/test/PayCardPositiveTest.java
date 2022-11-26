@@ -14,7 +14,7 @@ public class PayCardPositiveTest {
 
     @BeforeEach
     public void setUp() {
-        open("http://localhost:8080");
+        open(DataHelper.getURL());
         DBUtil.clearingTable("order_entity");
         DBUtil.clearingTable("payment_entity");
     }
@@ -25,7 +25,7 @@ public class PayCardPositiveTest {
         FormPage formPage = homePage.paymentPage();
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.proceedButton.click();
-        formPage.paySuccess();
+        formPage.checkPaymentIsSuccessful();
         Assertions.assertEquals("APPROVED", DBUtil.getOperationStatus("payment_entity"));
         Assertions.assertEquals(1L, DBUtil.countOrdersIfPayment());
     }
@@ -36,7 +36,7 @@ public class PayCardPositiveTest {
         FormPage formPage = homePage.paymentPage();
         formPage.setValidCard(DataHelper.getDeclinedCardNumber());
         formPage.proceedButton.click();
-        formPage.payError();
+        formPage.checkPaymentIsRejected();
         Assertions.assertEquals("DECLINED", DBUtil.getOperationStatus("payment_entity"));
         Assertions.assertEquals(1L, DBUtil.countOrdersIfPayment());
     }

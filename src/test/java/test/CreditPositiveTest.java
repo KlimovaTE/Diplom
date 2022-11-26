@@ -14,7 +14,7 @@ public class CreditPositiveTest {
 
     @BeforeEach
     public void setUp() {
-        open("http://localhost:8080");
+        open(DataHelper.getURL());
         DBUtil.clearingTable("order_entity");
         DBUtil.clearingTable("credit_request_entity");
     }
@@ -25,7 +25,7 @@ public class CreditPositiveTest {
         FormPage formPage = homePage.creditPage();
         formPage.setValidCard(DataHelper.getApprovedCardNumber());
         formPage.proceedButton.click();
-        formPage.paySuccess();
+        formPage.checkPaymentIsSuccessful();
         Assertions.assertEquals("APPROVED", DBUtil.getOperationStatus("credit_request_entity"));
         Assertions.assertEquals(1L, DBUtil.countOrdersIfCredit());
     }
@@ -36,8 +36,8 @@ public class CreditPositiveTest {
         FormPage formPage = homePage.creditPage();
         formPage.setValidCard(DataHelper.getDeclinedCardNumber());
         formPage.proceedButton.click();
-        formPage.payError();
-        Assertions.assertEquals("DECLINED", DBUtil.getOperationStatus("payment_entity"));
+        formPage.checkPaymentIsRejected();
+        Assertions.assertEquals("DECLINED", DBUtil.getOperationStatus("credit_request_entity"));
         Assertions.assertEquals(1L, DBUtil.countOrdersIfCredit());
     }
 }

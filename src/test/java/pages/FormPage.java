@@ -9,8 +9,7 @@ import java.time.Duration;
 import java.util.List;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
 @Data
 
@@ -26,27 +25,27 @@ public class FormPage {
     private final SelenideElement textErrorInvalidFormat = $(".input__sub");
     private final List<SelenideElement> textErrorInvalidFormatList = $$(".input__sub");
 
-    public void paySuccess() {
+    public void checkPaymentIsSuccessful() {
         textSuccess.shouldHave(text("Операция одобрена Банком."), Duration.ofSeconds(15)).shouldBe(visible);
     }
 
-    public void payError() {
+    public void checkPaymentIsRejected() {
         textError.shouldHave(text("Ошибка! Банк отказал в проведении операции."), Duration.ofSeconds(15)).shouldBe(visible);
     }
 
-    public void errorInvalidFormat() {
+    public void assertErrorInvalidFormat() {
         textErrorInvalidFormat.shouldHave(text("Неверный формат"), Duration.ofSeconds(2)).shouldBe(visible);
     }
 
-    public void errorInvalidCardExpirationDate() {
+    public void assertErrorInvalidCardExpirationDate() {
         textErrorInvalidFormat.shouldHave(text("Неверно указан срок действия карты"), Duration.ofSeconds(2)).shouldBe(visible);
     }
 
-    public void errorExpiredCard() {
+    public void assertErrorExpiredCard() {
         textErrorInvalidFormat.shouldHave(text("Истёк срок действия карты"), Duration.ofSeconds(2)).shouldBe(visible);
     }
 
-    public void errorRequiredField() {
+    public void assertErrorRequiredField() {
         for (SelenideElement element : textErrorInvalidFormatList) {
             element.shouldHave(text("Поле обязательно для заполнения"), Duration.ofSeconds(2)).shouldBe(visible);
         }
