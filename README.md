@@ -1,3 +1,4 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/73lelp6d4e434hk3?svg=true)](https://ci.appveyor.com/project/KlimovaTE/diplom)
 # Запуск автотестов и просмотр отчетов о тестировании
 ### Предустановленные программы:
 1. Docker
