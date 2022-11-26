@@ -10,10 +10,12 @@ build: off  # будем использовать свой скрипт сбор
 
 install:
   - docker-compose up -d
+  - sleep 20
   - java -Dspring.datasource.url=jdbc:mysql://localhost:3306/app -Dspring.datasource.username=app -Dspring.datasource.password=pass -jar aqa-shop.jar -P:profile=test &
   # запускаем SUT (& означает, что в фоновом режиме не блокируем терминал для запуска тестов)
-
+  - sleep 10
+  
 build_script:
   - chmod +x gradlew
-  - ./gradlew test -Dselenide.headless=true --info
+  - ./gradlew test -Dspring.datasource.url=jdbc:mysql://localhost:3306/app -Dspring.datasource.username=app -Dspring.datasource.password=pass
 
