@@ -9,7 +9,6 @@ public class APITest {
     @Test
     @DisplayName("Отправка валидных данных с разрешенной картой сервису платежей")
     public void payWithApprovedCardAPI() {
-
         ApiUtils.shouldSendPaymentRequest(DataHelper.getApprovedCardNumber(), "APPROVED");
     }
 

@@ -1,24 +1,14 @@
 package test.ui;
 
 import data.DataHelper;
-import data.URL;
 import org.junit.jupiter.api.*;
 
 import pages.FormPage;
 import pages.HomePage;
 import util.DBUtil;
 
-import static com.codeborne.selenide.Selenide.*;
-
-public class CreditPositiveTest {
+public class CreditPositiveTest extends BaseTest {
     HomePage homePage = new HomePage();
-
-    @BeforeEach
-    public void setUp() {
-        open(URL.getURL());
-        DBUtil.clearingTable("order_entity");
-        DBUtil.clearingTable("credit_request_entity");
-    }
 
     @Test
     @DisplayName("Кредит по одобренной карте. Все поля заполены валидными данными.")

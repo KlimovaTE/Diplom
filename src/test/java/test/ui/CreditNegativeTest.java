@@ -1,25 +1,13 @@
 package test.ui;
 
 import data.DataHelper;
-import data.URL;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.FormPage;
 import pages.HomePage;
-import util.DBUtil;
 
-import static com.codeborne.selenide.Selenide.open;
-
-public class CreditNegativeTest {
+public class CreditNegativeTest extends BaseTest {
     HomePage homePage = new HomePage();
-
-    @BeforeEach
-    public void setUp() {
-        open(URL.getURL());
-        DBUtil.clearingTable("order_entity");
-        DBUtil.clearingTable("credit_request_entity");
-    }
 
     @Test
     @DisplayName("Кредит. Отправка незаполненной формы.")
