@@ -1,6 +1,7 @@
-package test;
+package test.ui;
 
 import data.DataHelper;
+import data.URL;
 import org.junit.jupiter.api.*;
 
 import pages.FormPage;
@@ -14,7 +15,7 @@ public class PayCardPositiveTest {
 
     @BeforeEach
     public void setUp() {
-        open(DataHelper.getURL());
+        open(URL.getURL());
         DBUtil.clearingTable("order_entity");
         DBUtil.clearingTable("payment_entity");
     }

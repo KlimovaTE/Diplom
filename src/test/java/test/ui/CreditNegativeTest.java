@@ -1,6 +1,7 @@
-package test;
+package test.ui;
 
 import data.DataHelper;
+import data.URL;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public class CreditNegativeTest {
 
     @BeforeEach
     public void setUp() {
-        open(DataHelper.getURL());
+        open(URL.getURL());
         DBUtil.clearingTable("order_entity");
         DBUtil.clearingTable("credit_request_entity");
     }

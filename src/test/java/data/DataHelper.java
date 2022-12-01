@@ -22,9 +22,11 @@ public class DataHelper {
     }
 
     private static final Faker faker = new Faker(Locale.ENGLISH);
-    public static String getURL() {
-        return "http://localhost:8080";
-    }
+
+//    public static String getURL() {
+//        return "http://localhost:8080";
+//    }
+
     public static String getApprovedCardNumber() {
         return "4444 4444 4444 4441";
     }
@@ -46,22 +48,17 @@ public class DataHelper {
     }
 
     public static String getValidCVC() {
-//        int n = (int) (Math.random() * 999 + 1);
-//        return String.format("%03d", n);
         return getNumeric(3);
     }
 
     public static String getNumeric(int length) {
-//        int element = (int) (Math.random() * 10);
         return faker.number().digits(length);
-//        return Integer.toString(element);
     }
 
     public static String getOneNumberFrom13to99() {
         int element = (int) (Math.random() * 87 + 13);
         return Integer.toString(element);
     }
-
 
     public static String getInvalidOwnerOnlyOneName() {
         return faker.name().firstName();

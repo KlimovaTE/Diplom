@@ -34,21 +34,25 @@ public class FormPage {
     }
 
     public void assertErrorInvalidFormat() {
-        textErrorInvalidFormat.shouldHave(text("Неверный формат"), Duration.ofSeconds(2)).shouldBe(visible);
+        textErrorInvalidFormat.shouldHave(text("Неверный формат")).shouldBe(visible);
     }
 
     public void assertErrorInvalidCardExpirationDate() {
-        textErrorInvalidFormat.shouldHave(text("Неверно указан срок действия карты"), Duration.ofSeconds(2)).shouldBe(visible);
+        textErrorInvalidFormat.shouldHave(text("Неверно указан срок действия карты")).shouldBe(visible);
     }
 
     public void assertErrorExpiredCard() {
-        textErrorInvalidFormat.shouldHave(text("Истёк срок действия карты"), Duration.ofSeconds(2)).shouldBe(visible);
+        textErrorInvalidFormat.shouldHave(text("Истёк срок действия карты")).shouldBe(visible);
     }
 
     public void assertErrorRequiredField() {
         for (SelenideElement element : textErrorInvalidFormatList) {
-            element.shouldHave(text("Поле обязательно для заполнения"), Duration.ofSeconds(2)).shouldBe(visible);
+            element.shouldHave(text("Поле обязательно для заполнения")).shouldBe(visible);
         }
+    }
+
+    private void cleanField(SelenideElement fieldName) {
+        fieldName.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME, Keys.BACK_SPACE));
     }
 
     public void setCard(String cardNumber) {
@@ -56,22 +60,22 @@ public class FormPage {
     }
 
     public void setMonth(String month) {
-        monthField.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME, Keys.BACK_SPACE));
+        cleanField(monthField);
         monthField.setValue(month);
     }
 
     public void setYear(String year) {
-        yearField.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME, Keys.BACK_SPACE));
+        cleanField(yearField);
         yearField.setValue(year);
     }
 
     public void setOwnerName(String ownerName) {
-        ownerField.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME, Keys.BACK_SPACE));
+        cleanField(ownerField);
         ownerField.setValue(ownerName);
     }
 
     public void setCVC(String cvc) {
-        cvcField.sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME, Keys.BACK_SPACE));
+        cleanField(cvcField);
         cvcField.setValue(cvc);
     }
 
